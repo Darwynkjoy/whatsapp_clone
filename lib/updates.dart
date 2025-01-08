@@ -1,3 +1,6 @@
+import 'package:cloneapp_whatsapp/calls.dart';
+import 'package:cloneapp_whatsapp/chats.dart';
+import 'package:cloneapp_whatsapp/communities.dart';
 import 'package:flutter/material.dart';
 
 class Updates extends StatefulWidget{
@@ -97,10 +100,26 @@ class _updatesState extends State<Updates>{
         unselectedFontSize: 13,
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.chat_outlined),label: "Chats"),
-          BottomNavigationBarItem(icon: Icon(Icons.cloud_outlined),label: "Updates"),
-          BottomNavigationBarItem(icon: Icon(Icons.people_outline),label: "Communities"),
-          BottomNavigationBarItem(icon: Icon(Icons.call_outlined),label: "Calls"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Chats()));
+              },
+            child: Icon(Icons.chat_outlined)),label: "Chats"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Updates()));
+              },
+            child:Icon(Icons.cloud_outlined)),label: "Updates"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Communities()));
+              },
+            child:Icon(Icons.people_outline),),label: "Communities"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Calls()));
+              },
+            child:Icon(Icons.call_outlined),),label: "Calls"),
         ]),
     );
   }

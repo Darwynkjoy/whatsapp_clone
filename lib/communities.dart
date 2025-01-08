@@ -1,3 +1,6 @@
+import 'package:cloneapp_whatsapp/calls.dart';
+import 'package:cloneapp_whatsapp/chats.dart';
+import 'package:cloneapp_whatsapp/updates.dart';
 import 'package:flutter/material.dart';
 
 class Communities extends StatefulWidget{
@@ -28,7 +31,7 @@ class _communitiesState extends State<Communities>{
             child: Container(
                 height: 200,
                 width: 200,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),image: DecorationImage(image: AssetImage("assets/images/communities.png"),fit: BoxFit.cover)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),image: DecorationImage(image: AssetImage("assets/images/Screenshot_20250106-201450_3 copy.png"),fit: BoxFit.cover)),
                 ),
           ),
           Text("Stay connected with a community",style: TextStyle(fontSize: 20,color: Colors.white),),
@@ -68,10 +71,26 @@ class _communitiesState extends State<Communities>{
         unselectedFontSize: 13,
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.chat_outlined),label: "Chats"),
-          BottomNavigationBarItem(icon: Icon(Icons.cloud_outlined),label: "Updates"),
-          BottomNavigationBarItem(icon: Icon(Icons.people_outline),label: "Communities"),
-          BottomNavigationBarItem(icon: Icon(Icons.call_outlined),label: "Calls"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Chats()));
+              },
+            child: Icon(Icons.chat_outlined)),label: "Chats"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Updates()));
+              },
+            child:Icon(Icons.cloud_outlined)),label: "Updates"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Communities()));
+              },
+            child:Icon(Icons.people_outline),),label: "Communities"),
+          BottomNavigationBarItem(icon: GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Calls()));
+              },
+            child:Icon(Icons.call_outlined),),label: "Calls"),
         ]),
     );
   }
