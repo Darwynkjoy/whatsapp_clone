@@ -1,6 +1,10 @@
+import 'package:cloneapp_whatsapp/chats.dart';
 import 'package:flutter/material.dart';
 
 class MessagingPage extends StatefulWidget{
+  MessagingPage({super.key,required this.firstName,required this.lastName});
+  final String firstName;
+  final String lastName;
   @override
   State<MessagingPage> createState()=> _messagingPageState();
 }
@@ -11,11 +15,13 @@ class _messagingPageState extends State<MessagingPage>{
       backgroundColor: Color.fromRGBO(12, 16, 20, 1),
       appBar: AppBar(
       backgroundColor: Color.fromRGBO(12, 16, 20, 1),
-      title: Text("EL",style: TextStyle(fontSize: 22,color: Colors.white),),
+      title: Text("${widget.firstName} ${widget.lastName}",style: TextStyle(fontSize: 22,color: Colors.white),),
       leading: Row(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pop(context, MaterialPageRoute(builder: (context)=>MessagingPage()),),
+            onTap: () {
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Chats()));
+            },
             child: Icon(Icons.arrow_back,color: Colors.white,)),
           Container(
             height: 32,

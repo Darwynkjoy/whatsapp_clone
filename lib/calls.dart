@@ -8,6 +8,19 @@ class Calls extends StatefulWidget{
   State<Calls> createState()=> _callsState();
 }
 class _callsState extends State<Calls>{
+  List<Map<String, dynamic>> contactsData = [
+  {"firstname": "John", "lastname": "Doe", "message": "Hey!", "time": "10:30 AM"},
+  {"firstname": "Jane", "lastname": "Smith", "message": "Reminder for meeting.", "time": "9:15 AM"},
+  {"firstname": "Michael", "lastname": "Johnson", "message": "Catch up later?", "time": "8:45 AM"},
+  {"firstname": "Emily", "lastname": "Davis", "message": "Great job!", "time": "7:00 AM"},
+  {"firstname": "Chris", "lastname": "Brown", "message": "Weekend plans?", "time": "Yesterday"},
+  {"firstname": "Sophia", "lastname": "Wilson", "message": "Call you soon.", "time": "Yesterday"},
+  {"firstname": "Daniel", "lastname": "Martinez", "message": "Thanks earlier!", "time": "2 days ago"},
+  {"firstname": "Olivia", "lastname": "Taylor", "message": "Lunch tomorrow?", "time": "2 days ago"},
+  {"firstname": "James", "lastname": "Anderson", "message": "Check this out!", "time": "Last week"},
+  {"firstname": "Emma", "lastname": "Thomas", "message": "Ready when you are.", "time": "Last week"},
+];
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -58,8 +71,8 @@ class _callsState extends State<Calls>{
                   width: 60,
                   decoration: BoxDecoration(shape: BoxShape.circle,image: DecorationImage(image: AssetImage("assets/images/Coffeeincup.jpg"),fit: BoxFit.cover)),
                   ),
-                  title: Text("Chilling",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
-                  subtitle: Text("4 Januvary, 8:21 pm",style: TextStyle(color: Color.fromRGBO(151, 155, 159, 1),fontSize: 15),),
+                  title: Text("${contactsData[index]["firstname"]} ${contactsData[index]["lastname"]}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
+                  subtitle: Text("${contactsData[index]["time"]}",style: TextStyle(color: Color.fromRGBO(151, 155, 159, 1),fontSize: 15),),
                   trailing: Icon(Icons.call_outlined,color: Colors.white,),
               );
             }, separatorBuilder: (context,index){
@@ -89,22 +102,22 @@ class _callsState extends State<Calls>{
         items: [
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Chats()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Chats()));
               },
             child: Icon(Icons.chat_outlined)),label: "Chats"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Updates()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Updates()));
               },
             child:Icon(Icons.cloud_outlined)),label: "Updates"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Communities()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Communities()));
               },
             child:Icon(Icons.people_outline),),label: "Communities"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Calls()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Calls()));
               },
             child:Icon(Icons.call_outlined),),label: "Calls"),
         ]),

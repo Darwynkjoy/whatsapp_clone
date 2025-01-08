@@ -73,22 +73,22 @@ class _communitiesState extends State<Communities>{
         items: [
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Chats()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Chats()));
               },
             child: Icon(Icons.chat_outlined)),label: "Chats"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Updates()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Updates()));
               },
             child:Icon(Icons.cloud_outlined)),label: "Updates"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Communities()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Communities()));
               },
             child:Icon(Icons.people_outline),),label: "Communities"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Calls()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Calls()));
               },
             child:Icon(Icons.call_outlined),),label: "Calls"),
         ]),

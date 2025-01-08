@@ -1,3 +1,4 @@
+import 'package:cloneapp_whatsapp/chats.dart';
 import 'package:flutter/material.dart';
 
 class Welcomepage extends StatefulWidget{
@@ -5,6 +6,16 @@ class Welcomepage extends StatefulWidget{
   State<Welcomepage> createState()=> _welcomepageState();
 }
 class _welcomepageState extends State<Welcomepage>{
+
+void initState(){
+  super.initState();
+  auto();
+}
+
+  void auto()async{
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Chats()));
+  }
   @override
   Widget build(BuildContext context){
     return Scaffold(

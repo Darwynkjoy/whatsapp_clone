@@ -1,14 +1,56 @@
 import 'package:cloneapp_whatsapp/calls.dart';
 import 'package:cloneapp_whatsapp/communities.dart';
 import 'package:cloneapp_whatsapp/messaging_page.dart';
+import 'package:cloneapp_whatsapp/new_contact.dart';
 import 'package:cloneapp_whatsapp/updates.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Chats extends StatefulWidget{
   @override
   State<Chats> createState()=> _chatState();
 }
 class _chatState extends State<Chats>{
+
+  //late Box box;
+  //List<Map<String,dynamic>> contactsData=[];
+List<Map<String, dynamic>> contactsData = [
+  {"firstname": "John", "lastname": "Doe", "message": "Hey!", "time": "10:30 AM"},
+  {"firstname": "Jane", "lastname": "Smith", "message": "Reminder for meeting.", "time": "9:15 AM"},
+  {"firstname": "Michael", "lastname": "Johnson", "message": "Catch up later?", "time": "8:45 AM"},
+  {"firstname": "Emily", "lastname": "Davis", "message": "Great job!", "time": "7:00 AM"},
+  {"firstname": "Chris", "lastname": "Brown", "message": "Weekend plans?", "time": "Yesterday"},
+  {"firstname": "Sophia", "lastname": "Wilson", "message": "Call you soon.", "time": "Yesterday"},
+  {"firstname": "Daniel", "lastname": "Martinez", "message": "Thanks earlier!", "time": "2 days ago"},
+  {"firstname": "Olivia", "lastname": "Taylor", "message": "Lunch tomorrow?", "time": "2 days ago"},
+  {"firstname": "James", "lastname": "Anderson", "message": "Check this out!", "time": "Last week"},
+  {"firstname": "Emma", "lastname": "Thomas", "message": "Ready when you are.", "time": "Last week"},
+];
+
+  /*void initState(){
+    super.initState();
+    openbox();
+  }
+
+  Future<void> openbox()async{
+    box=await Hive.openBox("contacts");
+    loadContacts();
+  }
+  void loadContacts(){
+    List<dynamic>? contact=box.get("contacts")?.cast<dynamic>();
+    if (contact != null){
+      setState(() {
+        contactsData=List<Map<String,dynamic>>.from(contact);
+      });
+    }
+    else{
+      setState(() {
+        contactsData=[];
+      });
+    }
+  }*/
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -84,24 +126,27 @@ class _chatState extends State<Chats>{
             ListView.separated(itemBuilder: (context,index){
               return ListTile(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagingPage()),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagingPage(
+                    firstName:contactsData[index]["firstname"],
+                    lastName:contactsData[index]["lastname"]
+                    ),),);
                 },
                  leading: Container(
                   height: 55,
                   width: 55,
                   decoration: BoxDecoration(shape: BoxShape.circle,image: DecorationImage(image: AssetImage("assets/images/Coffeeincup.jpg"))),
                   ),
-                  title: Text("Chilling",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
+                  title: Text("${contactsData[index]["firstname"]} ${contactsData[index]["lastname"]}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.white),),
                   subtitle: Row(
                     children: [
                       Icon(Icons.done_all,color: Colors.blue,size: 20,),
-                      Text("data",style: TextStyle(color: Color.fromRGBO(151, 155, 159, 1),fontSize: 15),),
+                      Text("${contactsData[index]["message"]}",style: TextStyle(color: Color.fromRGBO(151, 155, 159, 1),fontSize: 15),),
                     ],
                   ),
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("12:00 am",style: TextStyle(color: Color.fromRGBO(93, 193, 110, 1),fontSize: 12),),
+                      Text("${contactsData[index]["time"]}",style: TextStyle(color: Color.fromRGBO(93, 193, 110, 1),fontSize: 12),),
                       SizedBox(height: 5,),
                       Container(
                         height: 18,
@@ -114,14 +159,17 @@ class _chatState extends State<Chats>{
               );
             }, separatorBuilder: (context,index){
               return SizedBox(height: 15,);
-            }, itemCount: 10)  
+            }, itemCount: contactsData.length)  
           )
         ],
       ),
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromRGBO(93, 193, 110, 1),
-        onPressed: (){},
+        onPressed: ()async{
+         await Navigator.push(context, MaterialPageRoute(builder: (context)=>NewContact()));
+         //loadContacts();
+        },
         child: Icon(Icons.add_comment,color: Colors.black,),
         ),
       
@@ -139,22 +187,22 @@ class _chatState extends State<Chats>{
         items: [
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Chats()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Chats()));
               },
             child: Icon(Icons.chat_outlined)),label: "Chats"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Updates()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Updates()));
               },
             child:Icon(Icons.cloud_outlined)),label: "Updates"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Communities()));
+               Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Communities()));
               },
             child:Icon(Icons.people_outline),),label: "Communities"),
           BottomNavigationBarItem(icon: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Calls()));
+              Navigator.replace(context, oldRoute: ModalRoute.of(context)!, newRoute: MaterialPageRoute(builder: (context)=>Calls()));
               },
             child:Icon(Icons.call_outlined),),label: "Calls"),
         ]),
