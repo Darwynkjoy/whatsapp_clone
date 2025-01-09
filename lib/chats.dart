@@ -13,9 +13,10 @@ class Chats extends StatefulWidget{
 }
 class _chatState extends State<Chats>{
 
-  //late Box box;
-  //List<Map<String,dynamic>> contactsData=[];
-List<Map<String, dynamic>> contactsData = [
+  late Box box;
+  List<Map<String, dynamic>> contactsData = [];
+
+ /*List<Map<String, dynamic>> contactsData = [
   {"firstname": "John", "lastname": "Doe", "message": "Hey!", "time": "10:30 AM"},
   {"firstname": "Jane", "lastname": "Smith", "message": "Reminder for meeting.", "time": "9:15 AM"},
   {"firstname": "Michael", "lastname": "Johnson", "message": "Catch up later?", "time": "8:45 AM"},
@@ -26,9 +27,9 @@ List<Map<String, dynamic>> contactsData = [
   {"firstname": "Olivia", "lastname": "Taylor", "message": "Lunch tomorrow?", "time": "2 days ago"},
   {"firstname": "James", "lastname": "Anderson", "message": "Check this out!", "time": "Last week"},
   {"firstname": "Emma", "lastname": "Thomas", "message": "Ready when you are.", "time": "Last week"},
-];
+];*/
 
-  /*void initState(){
+  void initState(){
     super.initState();
     openbox();
   }
@@ -43,13 +44,19 @@ List<Map<String, dynamic>> contactsData = [
       setState(() {
         contactsData=List<Map<String,dynamic>>.from(contact);
       });
+      print("loaded contact:${contactsData.length}");
     }
     else{
       setState(() {
         contactsData=[];
       });
     }
-  }*/
+  }
+
+void saveContact()async{
+     await box.put("contacts", contactsData); 
+     print("saved contact:${contactsData}");
+    }
 
   @override
   Widget build(BuildContext context){
@@ -146,7 +153,7 @@ List<Map<String, dynamic>> contactsData = [
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("${contactsData[index]["time"]}",style: TextStyle(color: Color.fromRGBO(93, 193, 110, 1),fontSize: 12),),
+                      Text("${TimeOfDay.now().format(context)}",style: TextStyle(color: Color.fromRGBO(93, 193, 110, 1),fontSize: 12),),
                       SizedBox(height: 5,),
                       Container(
                         height: 18,
@@ -165,10 +172,11 @@ List<Map<String, dynamic>> contactsData = [
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(93, 193, 110, 1),
+        backgroundColor: Color.fromRGBO(93, 193, 109, 1),
         onPressed: ()async{
          await Navigator.push(context, MaterialPageRoute(builder: (context)=>NewContact()));
-         //loadContacts();
+         loadContacts();
+         saveContact();
         },
         child: Icon(Icons.add_comment,color: Colors.black,),
         ),

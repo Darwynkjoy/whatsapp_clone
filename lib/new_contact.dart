@@ -1,4 +1,3 @@
-import 'package:cloneapp_whatsapp/chats.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -37,6 +36,11 @@ class _newContactState extends State<NewContact>{
       });
     }
   }
+
+  void saveContact()async{
+     await box.put("contacts", contactsData); 
+    }
+
 
   @override
   Widget build(BuildContext context){
@@ -123,14 +127,13 @@ class _newContactState extends State<NewContact>{
                       "lastname":lastname.text,
                       "phone":phone.text
                     });
-                    box.put("contacts", contactsData);
+                    saveContact();
                     Firstname.clear();
                     lastname.clear();
                     phone.clear();
-                    print(contactsData);
+                    print("saved data :${contactsData.length}");
                   });
-                  Navigator.pop(context,MaterialPageRoute(builder: (context)=>Chats()));
-                  loadContacts();
+                  Navigator.pop(context);
                 },
                 child: Text("Save",style: TextStyle(fontSize: 16,color: Colors.black),)),
             )

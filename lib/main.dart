@@ -1,3 +1,4 @@
+
 import 'package:cloneapp_whatsapp/chats.dart';
 import 'package:cloneapp_whatsapp/new_contact.dart';
 import 'package:cloneapp_whatsapp/welcomepage.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
      debugShowCheckedModeBanner: false,
-      home: Welcomepage(),
+      home: Chats(),
     );
   }
 }
